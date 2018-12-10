@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  .row
+    .column
+      h2= res.title
+  .row
+    .column
+      table
+        tr
+          td= res.chamber
+          td= res.date
+          td= res.signature
+          td= res.result
+  .row
+    div.column!= md(res.text)
+  .row
+    .column
+      a.button(href="/pdf/"+res.id) PDF

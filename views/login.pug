@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  .row
+    .column
+      form(method="post", action="/login")
+        label(for="name") Username
+        input(name="name", type="text")
+        label(for="pass") Passwort
+        input(name="pass", type="password")
+        input.button(type="submit", value="Login")

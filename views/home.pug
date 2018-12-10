@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .row
+    .column
+      table
+        thead
+          tr
+            th Gremium
+            th Datum
+            th Titel
+            th Status
+            if session.is_logged_in
+              th Löschen
+        tbody
+          for el in resolutions
+            tr
+              td #{el.chamber}
+              td= el.date
+              td
+                a(href="/res/"+el.id) #{el.title}
+              td= el.result
+              if session.is_logged_in
+                td
+                  a.button(href="/del/"+el.id) x

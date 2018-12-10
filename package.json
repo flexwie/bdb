@@ -1,0 +1,31 @@
+{
+  "name": "bdb",
+  "version": "1.0.0",
+  "description": "A small and easy rental and asset manager\r It was build for small organisations and companys to have an easy way of managing their assets and renting them to people. It is still very much in its earliest state, but you can already add user, items and user can send requests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.4",
+    "express-flash": "0.0.2",
+    "express-session": "^1.15.6",
+    "jsonschema": "^1.2.4",
+    "jstransformer-markdown-it": "^2.1.0",
+    "lowdb": "^1.0.0",
+    "markdown-to-pug": "^1.0.11",
+    "moment": "^2.22.2",
+    "morgan": "^1.9.1",
+    "node-markdown": "^0.1.1",
+    "pdfkit": "^0.8.3",
+    "pug": "^2.0.3",
+    "remove-markdown": "^0.3.0",
+    "saml2": "0.0.8",
+    "shortid": "^2.2.14"
+  }
+}

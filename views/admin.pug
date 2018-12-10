@@ -1,0 +1,37 @@
+extends layout
+
+block scripts
+  script(src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js")
+  link(href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css", rel="stylesheet")
+  
+block content
+  .row
+    .column
+      h2 Beschluss anlegen
+  .row
+    .column
+      form(method="post", action="/new")
+        label(for="chamber") Gremium
+        select(name="chamber")
+          option(value="MV") Mitgliederversammlung
+          option(value="AS") AS
+        label(for="signature") Aktenzeichen
+        input(name="signature", type="text")
+        label(for="date") Datum
+        input(type="date", name="date")
+        label(for="title") Titel
+        input(type="text", name="title")
+        label(for="status") Ergebnis
+        input(type="text", name="status")
+        label(for="body") Beschluss
+        textarea#mdeditor(name="body")
+        input.button-primary(type="submit", value="Senden")
+
+    script.
+      var simplemde = new SimpleMDE({ 
+        element: document.getElementById('mdeditor'),
+        blockStyles: {italic: '_'},
+        forceSync: true,
+        spellChecker: false,
+        
+      })
