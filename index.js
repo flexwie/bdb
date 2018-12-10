@@ -27,7 +27,7 @@ const resolution_schema = {
 
 // lowdb setting
 // ---------------------
-const adapter = new f_sync('./db/db.json')
+const adapter = new f_sync('./db/dev.db.json')
 const db      = low(adapter)
 
 // mixin to validate if post follows the schema
