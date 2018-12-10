@@ -24,7 +24,7 @@ const resolution_schema = {
   "required": ["id", "title", "text", "date", "applicant"]
 }
 
-const adapter = new f_sync('./db/db.json')
+const adapter = new f_sync('./db/dev.db.json')
 const db      = low(adapter)
 
 db._.mixin({
