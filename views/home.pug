@@ -3,6 +3,11 @@ extends layout
 block content
   .row
     .column
+      .search
+        span.fa.fa-search
+        input#query(type="text", name="query", placeholder="Suche")
+  .row
+    .column
       table
         thead
           tr
@@ -23,3 +28,13 @@ block content
               if session.is_logged_in
                 td
                   a.button(href="/del/"+el.id) x
+  
+  script.
+    var query
+    $('#query').on('keypress', (e) => {
+      if(e.key == 'Enter') {
+        var q = $('#query').val()
+        q = q.toLowerCase()
+        document.location.assign('/s/'+q)
+      }
+    })

@@ -18,9 +18,10 @@ const resolution_schema = {
     "text": {"type": "string"},
     "date": {"type": "date"},
     "chamber": {"type": "string"},
+    "applicant": {"type": "string"},
     "result": {"type": "string"}
   },
-  "required": ["id", "title", "text", "date"]
+  "required": ["id", "title", "text", "date", "applicant"]
 }
 
 const adapter = new f_sync('./db/db.json')
@@ -28,7 +29,9 @@ const db      = low(adapter)
 
 db._.mixin({
   createNew: (obj, post) => {
-    if(jsonval(post, resolution_schema)) {
+    var result = jsonval(post, resolution_schema)
+    if(result.valid) {
+      console.log(jsonval(post, resolution_schema))
       return obj.resolutions.push(post)
     } else {
       return false

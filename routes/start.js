@@ -1,6 +1,8 @@
 module.exports = (db) => {
   const express = require('express')
   const rmmd    = require('remove-markdown')
+  const natural = require('natural')
+  const token   = new natural.OrthographyTokenizer({ language: 'fi' })
   const pdf     = require('pdfkit')
   var router    = express.Router()
 
@@ -53,18 +55,20 @@ module.exports = (db) => {
       res.contentType("application/pdf")
       doc.pipe(res)
 
-      doc.rect(0, 77.16, 310.04, 77.16-55.12).fill('#f39900')
+      doc.rect(0, 77.16, 310.04, 77.16-55.12).fill('#f9cc80')
 
-      doc.image('./public/logo.png', 320, 68)
+      doc.image('./public/logo.png', 315, 67.5)
+
+      doc.rect(560, 77.16, 100, 77.16-55.12).fill('#f9cc80')
 
       doc.fontSize(20).fill('#000000').text(reqe.title, 70, 150)
         .fontSize(8).moveDown().text(reqe.chamber + ' - '+ reqe.date + ' - ' + reqe.signature + ' - Ergebnis: ' + reqe.result)
+        .fontSize(13).moveDown().text('AntragstellerIn: ' + reqe.applicant)
        .fontSize(13)
        .moveDown()
        .text(rmmd(reqe.text, { stripListLeaders: false }), {
-         width: 412,
+         width: 438.74,
          align: 'justify',
-         height: 300,
          ellipsis: true
        })
 
@@ -74,6 +78,14 @@ module.exports = (db) => {
       req.flash('warning', 'Beschluss konnte nicht gefunden werden')
       res.redirecht('/')
     }
+  })
+
+  router.get('/s', (req, res) => res.redirect('/'))
+
+  router.get('/s/:query', (req, res) => {
+    tokens = token.tokenize(req.params.query)
+    result = db.get('resolutions').filter({ keys: tokens}).value()
+    res.render('home', {title: 'Suche', resolutions: result})
   })
 
   return router

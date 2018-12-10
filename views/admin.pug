@@ -5,33 +5,80 @@ block scripts
   link(href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css", rel="stylesheet")
   
 block content
-  .row
-    .column
-      h2 Beschluss anlegen
-  .row
-    .column
-      form(method="post", action="/new")
-        label(for="chamber") Gremium
-        select(name="chamber")
-          option(value="MV") Mitgliederversammlung
-          option(value="AS") AS
-        label(for="signature") Aktenzeichen
-        input(name="signature", type="text")
-        label(for="date") Datum
-        input(type="date", name="date")
-        label(for="title") Titel
-        input(type="text", name="title")
-        label(for="status") Ergebnis
-        input(type="text", name="status")
-        label(for="body") Beschluss
-        textarea#mdeditor(name="body")
-        input.button-primary(type="submit", value="Senden")
+  if el
+    .row
+      .column
+        h2 Beschluss bearbeiten
+    .row
+      .column
+        form(method="post", action="/new/"+el.id)
+          label(for="chamber") Gremium
+          select(name="chamber")
+            option(value="MV") Mitgliederversammlung
+            option(value="AS") AS
+          label(for="signature") Aktenzeichen
+          input(name="signature", type="text", value=el.signature)
+          label(for="date") Datum
+          input(type="date", name="date", value=el.date)
+          label(for="title") Titel
+          input(type="text", name="title", value=el.title)
+          label(for="status") Ergebnis
+          input(type="text", name="status", value=el.result)
+          label(for="body") Beschluss
+          textarea#mdeditor(name="body")
+          input.button-primary(type="submit", value="Senden")
+            
+      script= 'text = "' + el.text + '"'
+      
+      script.
+        var simplemde = new SimpleMDE({ 
+          element: document.getElementById('mdeditor'),
+          blockStyles: {italic: '_'},
+          forceSync: true,
+          spellChecker: false,
+          
+        })
+        simplemde.value(window.text)
+  else
+    .row
+      .column
+        h2 Beschluss anlegen
+    form(method="post", action="/new")    
+      .row
+        .column.column-50
+          label(for="chamber") Gremium
+          select(name="chamber")
+            option(value="MV") Mitgliederversammlung
+            option(value="AS") AS
+        .column.column-50
+          label(for="signature") Aktenzeichen
+          input(name="signature", type="text")
+      .row
+        .column
+          label(for="applicant") AntragstellerIn
+          input(name="applicant", type="text")
+      .row
+        .column
+          label(for="title") Titel
+          input(type="text", name="title")
+      .row
+        .column.column-50
+          label(for="status") Ergebnis
+          input(type="text", name="status")
+        .column.column-50
+          label(for="date") Datum
+          input(type="date", name="date")
+      .row
+        .column
+          label(for="body") Beschluss
+          textarea#mdeditor(name="body")
+          input.button-primary(type="submit", value="Senden")
 
-    script.
-      var simplemde = new SimpleMDE({ 
-        element: document.getElementById('mdeditor'),
-        blockStyles: {italic: '_'},
-        forceSync: true,
-        spellChecker: false,
-        
-      })
+      script.
+        var simplemde = new SimpleMDE({ 
+          element: document.getElementById('mdeditor'),
+          blockStyles: {italic: '_'},
+          forceSync: true,
+          spellChecker: false,
+          
+        })

@@ -2,13 +2,15 @@ html
   head
     title fzs - #{title}
     style.
-      .button-small {
-        font-size: .8rem;
-        height: 2.8rem;
-        line-height: 2.8rem;
-        padding: 0 1.5rem;
+      @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+      .search { position: relative; }
+      .search input { text-indent: 30px;}
+      .search .fa-search { 
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        font-size: 15px;
       }
-      
       textarea {
         white-space: pre-line;
       }

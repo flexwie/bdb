@@ -17,14 +17,17 @@
     "express-session": "^1.15.6",
     "jsonschema": "^1.2.4",
     "jstransformer-markdown-it": "^2.1.0",
+    "keyword-extractor": "0.0.15",
     "lowdb": "^1.0.0",
     "markdown-to-pug": "^1.0.11",
     "moment": "^2.22.2",
     "morgan": "^1.9.1",
+    "natural": "^0.6.2",
     "node-markdown": "^0.1.1",
     "pdfkit": "^0.8.3",
     "pug": "^2.0.3",
     "remove-markdown": "^0.3.0",
+    "retext-keywords": "^4.0.2",
     "saml2": "0.0.8",
     "shortid": "^2.2.14"
   }
