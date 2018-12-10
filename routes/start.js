@@ -6,30 +6,14 @@ module.exports = (db) => {
   const pdf     = require('pdfkit')
   var router    = express.Router()
 
+  // Returns all resolutions
   router.get('/', (req, res) => {
     const all = db.get('resolutions').value()
     res.render('home', {title: 'Übersicht', resolutions: all})
   })
 
-  router.get('/login', (req, res) => {
-    res.render('login', {title: 'Login'})
-  })
-
-  router.post('/login', (req, res) => {
-    if(req.body.name == 'fzs' && req.body.pass == 'bdbtool') {
-      req.session.is_logged_in = true
-      res.redirect('/')
-    } else {
-      req.flash('warning', 'Falsche Daten')
-      res.redirect('/login')
-    }
-  })
-
-  router.get('/logout', (req, res) => {
-    req.session.destroy()
-    res.redirect('/')
-  })
-
+  // Deletes resolution with :id when user is logged in
+  // TODO: Add user roles (admin)
   router.get('/del/:id', (req, res, next) => {
     if(req.session.is_logged_in) {
       next()
@@ -42,11 +26,13 @@ module.exports = (db) => {
     res.redirect('/')
   })
 
+  // Shows content for single resolution via :id
   router.get('/res/:id', (req, res) => {
     const resolution = db.get('resolutions').find({ id: req.params.id }).value()
     res.render('detail', {title: 'Resolution', res: resolution})
   })
 
+  // pipes resolution content in pdf template directly in browser
   router.get('/pdf/:id', (req, res) => {
     const reqe = db.get('resolutions').find({ id: req.params.id }).value()
     if(reqe) {
@@ -80,8 +66,11 @@ module.exports = (db) => {
     }
   })
 
+  // Redirect home when search query is empty
   router.get('/s', (req, res) => res.redirect('/'))
 
+  // Search db token entries for query string
+  // TODO: implement whole search query
   router.get('/s/:query', (req, res) => {
     tokens = token.tokenize(req.params.query)
     result = db.get('resolutions').filter({ keys: tokens}).value()

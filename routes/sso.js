@@ -4,6 +4,8 @@ module.exports = () => {
   const fs      = require('fs')
   var router    = express.Router()
 
+  // example followed: https://samlify.js.org/#/?id=samlify
+  // WARNING: NOT WORKING
   const idp = saml.IdentityProvider({
     metadata: fs.readFileSync('./metadata/fzs.xml')
   })

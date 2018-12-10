@@ -8,6 +8,7 @@ const session     = require('express-session')
 const jsonval     = require('jsonschema').validate
 const f_sync      = require('lowdb/adapters/FileSync')
 
+// each db entry has to follow this schema
 const resolution_schema = {
   "id": "/Resolution",
   "type": "object",
@@ -24,9 +25,12 @@ const resolution_schema = {
   "required": ["id", "title", "text", "date", "applicant"]
 }
 
+// lowdb setting
+// ---------------------
 const adapter = new f_sync('./db/db.json')
 const db      = low(adapter)
 
+// mixin to validate if post follows the schema
 db._.mixin({
   createNew: (obj, post) => {
     var result = jsonval(post, resolution_schema)
