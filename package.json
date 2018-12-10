@@ -29,6 +29,7 @@
     "remove-markdown": "^0.3.0",
     "retext-keywords": "^4.0.2",
     "saml2": "0.0.8",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "samlify": "^2.4.1"
   }
 }
