@@ -1,4 +1,4 @@
-module.exports = (db) => {
+module.exports = (db, auth) => {
   const express = require('express')
   const shortid = require('shortid')
   const moment  = require('moment')
@@ -8,17 +8,17 @@ module.exports = (db) => {
   var router    = express.Router()
 
   // Middleware to see if user is logged in
-  router.use((req, res, next) => {
-    if(req.session.is_logged_in) {
-      next()
-    } else {
-      req.flash('warning', 'Nicht eingeloggt')
-      res.redirect('/login')
-    }
-  })
+  // router.use((req, res, next) => {
+  //   if(req.session.is_logged_in) {
+  //     next()
+  //   } else {
+  //     req.flash('warning', 'Nicht eingeloggt')
+  //     res.redirect('/login')
+  //   }
+  // })
 
   // Add new resolution form
-  router.get('/', (req, res) => {
+  router.get('/', auth.authenticate('saml', {failureRedirect: '/', failureFlash: true}), (req, res) => {
     res.render('admin', {title: 'Neuer Beschluss'})
   })
 

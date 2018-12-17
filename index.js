@@ -5,8 +5,15 @@ const cookie      = require('cookie-parser')
 const morgan      = require('morgan')
 const flash       = require('express-flash')
 const session     = require('express-session')
+const passport    = require('passport')
+const saml        = require('passport-saml').Strategy
+const fs          = require('fs')
 const jsonval     = require('jsonschema').validate
 const f_sync      = require('lowdb/adapters/FileSync')
+const cs          = require('configstore')
+const pkg         = require('./package.json')
+
+global.config     = new Configstore(pkg.name)
 
 // each db entry has to follow this schema
 const resolution_schema = {
@@ -44,10 +51,20 @@ db._.mixin({
 })
 db.defaults({ resolutions: [], user: [] }).write()
 
+passport.use(new saml({
+    path: '/sso/assert',
+    entryPoint: 'https://sso.fzs.de/simplesamlphp/saml2/idp/SSOService.php',
+    issuer: 'https://beschluss.fzs.de/sso/local.xml',
+    cert: fs.readFileSync('./cert/idp.crt')
+  },
+  (profile, done) => {
+    return done(null)
+}))
+
 // Route files
 const start       = require('./routes/start')(db)
-const admin       = require('./routes/admin')(db)
-const sso         = require('./routes/sso')
+const admin       = require('./routes/admin')(db, passport)
+const sso         = require('./routes/sso')(passport)
 
 var app = express()
 

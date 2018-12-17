@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "configstore": "^4.0.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "express-flash": "0.0.2",
@@ -24,12 +25,14 @@
     "morgan": "^1.9.1",
     "natural": "^0.6.2",
     "node-markdown": "^0.1.1",
+    "passport": "^0.4.0",
+    "passport-saml": "^1.0.0",
     "pdfkit": "^0.8.3",
     "pug": "^2.0.3",
     "remove-markdown": "^0.3.0",
     "retext-keywords": "^4.0.2",
     "saml2": "0.0.8",
-    "shortid": "^2.2.14",
-    "samlify": "^2.4.1"
+    "samlify": "^2.4.1",
+    "shortid": "^2.2.14"
   }
 }
