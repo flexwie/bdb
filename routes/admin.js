@@ -18,12 +18,22 @@ module.exports = (db, auth) => {
   // })
 
   // Add new resolution form
-  router.get('/', auth.authenticate('saml', {failureRedirect: '/', failureFlash: true}), (req, res) => {
+  router.get('/', (req, res, next) => {
+    if(req.isAuthenticated()) {
+      return next()
+    }
+    res.send('no')
+  }, (req, res) => {
     res.render('admin', {title: 'Neuer Beschluss'})
   })
 
   // Add a new resolution to db and validate its schema
-  router.post('/', (req, res) => {
+  router.post('/', (req, res, next) => {
+    if(req.isAuthenticated()) {
+      return next()
+    }
+    res.redirect('/sso/login')
+  }, (req, res) => {
     text_keys = key.extract(req.body.body, { language: 'german', remove_digits: true, return_changed_case: true, remove_duplicates: true })
     this_resolution = { id: shortid.generate(), keys: text_keys.concat(token.tokenize(req.body.title.toLowerCase())), signature: req.body.signature, title: req.body.title, text: req.body.body, date: moment(req.body.date).format('DD.MM.YYYY'), chamber: req.body.chamber, result: req.body.status, applicant: req.body.applicant }
     if(db.createNew(this_resolution) !== false) {

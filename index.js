@@ -3,6 +3,7 @@ const low         = require('lowdb')
 const bodyparser  = require('body-parser')
 const cookie      = require('cookie-parser')
 const morgan      = require('morgan')
+const cors        = require('cors')
 const flash       = require('express-flash')
 const session     = require('express-session')
 const passport    = require('passport')
@@ -13,7 +14,7 @@ const f_sync      = require('lowdb/adapters/FileSync')
 const cs          = require('configstore')
 const pkg         = require('./package.json')
 
-global.config     = new Configstore(pkg.name)
+global.config     = new cs(pkg.name)
 
 // each db entry has to follow this schema
 const resolution_schema = {
@@ -51,11 +52,12 @@ db._.mixin({
 })
 db.defaults({ resolutions: [], user: [] }).write()
 
+
 passport.use(new saml({
     path: '/sso/assert',
     entryPoint: 'https://sso.fzs.de/simplesamlphp/saml2/idp/SSOService.php',
-    issuer: 'https://beschluss.fzs.de/sso/local.xml',
-    cert: fs.readFileSync('./cert/idp.crt')
+    issuer: 'https://beschluss.fzs.de/sso/local.xml' /* ,
+    cert: fs.readFileSync('./cert/idp.crt')*/
   },
   (profile, done) => {
     return done(null)
@@ -68,19 +70,28 @@ const sso         = require('./routes/sso')(passport)
 
 var app = express()
 
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.set('view engine', 'pug')
 
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(cookie('secret'))
-app.use(session({secret: "Shh, its a secret!"}))
+app.use(session({secret: "secret"}))
 app.use(flash())
 app.use(express.static('public'))
 app.locals.md = require('node-markdown').Markdown
 app.use(morgan(':method :url :status - :response-time ms'))
+app.use(cors())
 
 app.use(function(req,res,next){
-    res.locals.session = req.session;
+    res.locals.session = req.session
+    console.log(req.passport)
+    if(req.isAuthenticated()) {
+      console.log("test")
+      req.session.is_logged_in = true
+    }
     next();
 })
 
