@@ -5,40 +5,41 @@ const cookie      = require('cookie-parser')
 const morgan      = require('morgan')
 const flash       = require('express-flash')
 const session     = require('express-session')
-const jsonval     = require('jsonschema').validate
-const f_sync      = require('lowdb/adapters/FileSync')
+const mongoose    = require('mongoose')
+const mongtastic  = require('mongoosastic')
+const config      = require('./config.json')
+const elastic     = require('elasticsearch')
 
-const resolution_schema = {
-  "id": "/Resolution",
-  "type": "object",
-  "properties": {
-    "id": {"type": "string"},
-    "signature": {"type": "string"},
-    "title": {"type": "string"},
-    "text": {"type": "string"},
-    "date": {"type": "date"},
-    "chamber": {"type": "string"},
-    "applicant": {"type": "string"},
-    "result": {"type": "string"}
-  },
-  "required": ["id", "title", "text", "date", "applicant"]
+// Connect to mongoose and elastic
+mongoose.connect(config.mongodb, { useNewUrlParser: true })
+let esclient = new elastic.Client({host: config.elastic_host})
+
+// create mongoose schema
+const resolution = new mongoose.Schema({
+  signature: String,
+  title: {type: String, required: true, es_indexed: true},
+  text: {type: String, required: true, es_indexed: true},
+  chamber: String,
+  keys: [String],
+  applicant: String,
+  result: {type: String, default: "Pending"},
+  date: {type: Date, default: Date.now},
+  meta: {
+    created_at: {type: Date, default: Date.now},
+    created_by: String
 }
-
-const adapter = new f_sync('./db/dev.db.json')
-const db      = low(adapter)
-
-db._.mixin({
-  createNew: (obj, post) => {
-    var result = jsonval(post, resolution_schema)
-    if(result.valid) {
-      console.log(jsonval(post, resolution_schema))
-      return obj.resolutions.push(post)
-    } else {
-      return false
-    }
-  }
 })
-db.defaults({ resolutions: [], user: [] }).write()
+
+// Add mongtastic hydrate for querying
+resolution.plugin(mongtastic, {
+  index: config.elastic_index_name,
+  esClient: esclient,
+  hydrate: false,
+  hydrateOptions: null
+})
+
+const Resolution = mongoose.model('Resolution', resolution)
+
 
 // Route files
 const start       = require('./routes/start')(db)
