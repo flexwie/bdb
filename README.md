@@ -5,7 +5,7 @@
  Bis jetzt sind die Funktionen noch sehr eingeschränkt, werden aber kontinuierlich ausgebaut. Entstanden ist die Lösung als Projekt des AK IT des [fzs](https://fzs.de). Deswegen enthält das Projekt sehr viel verbandsspezifische Inhalte. Die werden aber Schritt für Schritt entfernt.
  
  ### Installation
- Die Installation ist sehr simpel, einfach das Repo clonen und mit ```npm i``` die Dependencies installieren. Dann mit dem Skript ````bin/bdb.js``` eine config erstellen. Wenn ihr es dann mit ```node index.js``` startet, läuft die Website unter dem Port den ihr in der config angegeben habt.
+ Die Installation ist sehr simpel, einfach das Repo clonen und mit ```npm i``` die Dependencies installieren. Dann mit dem Skript ```bin/bdb.js``` eine config erstellen. Wenn ihr es dann mit ```node index.js``` startet, läuft die Website unter dem Port den ihr in der config angegeben habt.
  
  ### Funktionen
  Bis jetzt kann man Beschlüsse eintragen und mit einer Suchfunktion ihre Titel und Schlagwörter des Textes durchsuchen. Außerdem lässt sich zu jedem Beschluss ein vorformatiertes PDF herunterladen.
