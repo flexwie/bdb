@@ -32,7 +32,7 @@ html
       .row
         .column
           a.button(href="/") Home
-          a.button(href="/new", style="margin-left: 10px;") Neu
+            a.button(href="/admin", style="margin-left: 10px;") Neu
           if session.is_logged_in
             a.button(href="/logout", style="margin-left: 10px;") Logout
           else

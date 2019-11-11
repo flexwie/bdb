@@ -64,7 +64,7 @@ app.use(function(req,res,next){
 })
 
 app.use('/', start)
-app.use('/new', admin)
+app.use('/admin', admin)
 app.use('/sso', sso)
 
 app.listen(4545)

@@ -11,7 +11,7 @@ block content
         h2 Beschluss bearbeiten
     .row
       .column
-        form(method="post", action="/new/"+el.id)
+        form(method="post", action="/admin/"+el.id)
           label(for="chamber") Gremium
           select(name="chamber")
             option(value="MV") Mitgliederversammlung
@@ -43,7 +43,7 @@ block content
     .row
       .column
         h2 Beschluss anlegen
-    form(method="post", action="/new")    
+    form(method="post", action="/admin")    
       .row
         .column.column-50
           label(for="chamber") Gremium
