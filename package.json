@@ -6,21 +6,33 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "./bin/bdb.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chalk": "^3.0.0",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "commander": "^4.0.1",
+    "configstore": "^5.0.0",
     "cookie-parser": "^1.4.3",
+    "elasticsearch": "^16.5.0",
     "express": "^4.16.4",
     "express-flash": "0.0.2",
     "express-session": "^1.15.6",
+    "figlet": "^1.2.4",
+    "inquirer": "^7.0.0",
     "jsonschema": "^1.2.4",
     "jstransformer-markdown-it": "^2.1.0",
     "keyword-extractor": "0.0.15",
     "lowdb": "^1.0.0",
     "markdown-to-pug": "^1.0.11",
+    "minimist": "^1.2.0",
     "moment": "^2.22.2",
+    "mongoosastic": "^4.5.1",
+    "mongoose": "^5.7.9",
     "morgan": "^1.9.1",
     "natural": "^0.6.2",
     "node-markdown": "^0.1.1",
@@ -29,6 +41,7 @@
     "remove-markdown": "^0.3.0",
     "retext-keywords": "^4.0.2",
     "saml2": "0.0.8",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "touch": "^3.1.0"
   }
 }
