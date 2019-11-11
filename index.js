@@ -52,8 +52,12 @@ app.set('view engine', 'pug')
 
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }))
-app.use(cookie('secret'))
-app.use(session({secret: "Shh, its a secret!"}))
+app.use(cookie(config.cookie_secret))
+app.use(session({
+  secret: config.cookie_secret,
+  resave: false,
+  saveUninitialized: false
+}))
 app.use(flash())
 app.use(express.static('public'))
 app.locals.md = require('node-markdown').Markdown
@@ -68,4 +72,4 @@ app.use('/', start)
 app.use('/admin', admin)
 app.use('/sso', sso)
 
-app.listen(4545)
+app.listen(config.port)
