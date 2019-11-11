@@ -42,8 +42,7 @@ const Resolution = mongoose.model('Resolution', resolution)
 
 
 // Route files
-const start       = require('./routes/start')(db)
-const admin       = require('./routes/admin')(db)
+const start       = require('./routes/public')(Resolution)
 const sso         = require('./routes/sso')
 
 var app = express()
