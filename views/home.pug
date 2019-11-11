@@ -21,7 +21,7 @@ block content
           for el in resolutions
             tr
               td #{el.chamber}
-              td= el.date
+              td #{moment(el.date).format("DD.MM.YYYY")}
               td
                 a(href="/res/"+el.id) #{el.title}
               td= el.result

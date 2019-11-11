@@ -9,7 +9,7 @@ block content
       table
         tr
           td= res.chamber
-          td= res.date
+          td= moment(res.date).format("DD.MM.YYYY")
           td= res.signature
           td= res.result
           td= res.applicant
