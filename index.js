@@ -1,5 +1,4 @@
 const express     = require('express')
-const low         = require('lowdb')
 const bodyparser  = require('body-parser')
 const cookie      = require('cookie-parser')
 const morgan      = require('morgan')
@@ -27,7 +26,7 @@ const resolution = new mongoose.Schema({
   meta: {
     created_at: {type: Date, default: Date.now},
     created_by: String
-}
+  }
 })
 
 // Add mongtastic hydrate for querying
