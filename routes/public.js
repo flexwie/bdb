@@ -79,7 +79,6 @@ module.exports = (db) => {
 
   router.get('/s/:query', (req, res) => {
     db.search({ query_string: { query: req.params.query } }, {hydrate: true}, (err, data) => {
-      console.log(data)
       if(err) throw err
       res.render('home', {title: "Suche", resolutions: data.hits.hits})
     })  
