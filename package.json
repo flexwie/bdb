@@ -4,13 +4,16 @@
   "description": "A small and easy rental and asset manager\r It was build for small organisations and companys to have an easy way of managing their assets and renting them to people. It is still very much in its earliest state, but you can already add user, items and user can send requests.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "config": "node ./bin/config.js",
+    "user": "node ./bin/user.js"
   },
   "bin": "./bin/bdb.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.7",
     "body-parser": "^1.18.3",
     "chalk": "^3.0.0",
     "clear": "^0.1.0",
@@ -27,7 +30,6 @@
     "jsonschema": "^1.2.4",
     "jstransformer-markdown-it": "^2.1.0",
     "keyword-extractor": "0.0.18",
-    "lowdb": "^1.0.0",
     "markdown-to-pug": "^1.0.11",
     "minimist": "^1.2.0",
     "moment": "^2.22.2",
@@ -42,5 +44,8 @@
     "retext-keywords": "^4.0.2",
     "shortid": "^2.2.14",
     "touch": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }
