@@ -10,7 +10,7 @@ const config      = require('./config.json')
 const elastic     = require('elasticsearch')
 
 // Connect to mongoose and elastic
-mongoose.connect(config.mongodb, { useNewUrlParser: true })
+mongoose.connect(config.mongodb, { useNewUrlParser: true, useUnifiedTopology: true })
 let esclient = new elastic.Client({host: config.elastic_host})
 
 // create mongoose schema
