@@ -2,6 +2,7 @@ module.exports = (db) => {
   const express = require('express')
   const rmmd    = require('remove-markdown')
   const pdf     = require('pdfkit')
+  const User    = require('../models/user')
   var router    = express.Router()
 
   router.get('/', async (req, res) => {
@@ -19,13 +20,24 @@ module.exports = (db) => {
   })
 
   router.post('/login', (req, res) => {
-    if(req.body.name == 'fzs' && req.body.pass == 'bdbtool') {
-      req.session.is_logged_in = true
-      res.redirect('/')
-    } else {
-      req.flash('warning', 'Falsche Daten')
-      res.redirect('/login')
-    }
+    User.findOne({mail: req.body.name}, (err, user) => {
+      if(err) {
+        req.flash('warning', 'Falscher Username')
+        res.redirect('/login')
+      }
+      user.comparePassword(req.body.pass, (err, isMatch) => {
+        if(err) {
+          req.flash('warning', 'Error: ' + err.message)
+          res.redirect('/login')
+        } else if(isMatch){
+          req.session.is_logged_in = true
+          res.redirect('/')
+        } else {
+          req.flash('warning', 'Falsches Passwort')
+          res.redirect('/login')
+        }
+      })
+    })
   })
 
   router.get('/logout', (req, res) => {
