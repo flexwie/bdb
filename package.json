@@ -26,7 +26,7 @@
     "inquirer": "^7.0.0",
     "jsonschema": "^1.2.4",
     "jstransformer-markdown-it": "^2.1.0",
-    "keyword-extractor": "0.0.15",
+    "keyword-extractor": "0.0.18",
     "markdown-to-pug": "^1.0.11",
     "minimist": "^1.2.0",
     "moment": "^2.22.2",
@@ -39,7 +39,6 @@
     "pug": "^2.0.3",
     "remove-markdown": "^0.3.0",
     "retext-keywords": "^4.0.2",
-    "saml2": "0.0.8",
     "shortid": "^2.2.14",
     "touch": "^3.1.0"
   },
