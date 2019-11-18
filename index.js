@@ -59,6 +59,7 @@ app.use(session({
 }))
 app.use(flash())
 app.use(express.static('public'))
+app.locals.instance_name = config.title
 app.locals.md = require('node-markdown').Markdown
 app.locals.moment = require('moment')
 app.use(morgan(':method :url :status - :response-time ms'))
