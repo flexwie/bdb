@@ -13,21 +13,8 @@ const elastic     = require('elasticsearch')
 mongoose.connect(config.mongodb, { useNewUrlParser: true })
 let esclient = new elastic.Client({host: config.elastic_host})
 
-// create mongoose schema
-const resolution = new mongoose.Schema({
-  signature: String,
-  title: {type: String, required: true, es_indexed: true},
-  text: {type: String, required: true, es_indexed: true},
-  chamber: String,
-  keys: [String],
-  applicant: String,
-  result: {type: String, default: "Pending"},
-  date: {type: Date, default: Date.now},
-  meta: {
-    created_at: {type: Date, default: Date.now},
-    created_by: String
-  }
-})
+const resolution = require('./models/resolution')
+const user = require('./models/user')
 
 // Add mongtastic hydrate for querying
 resolution.plugin(mongtastic, {
@@ -39,11 +26,9 @@ resolution.plugin(mongtastic, {
 
 const Resolution = mongoose.model('Resolution', resolution)
 
-
 // Route files
 const start       = require('./routes/public')(Resolution)
 const admin       = require('./routes/private')(Resolution)
-const sso         = require('./routes/sso')
 
 var app = express()
 
@@ -61,6 +46,7 @@ app.use(flash())
 app.use(express.static('public'))
 app.locals.md = require('node-markdown').Markdown
 app.locals.moment = require('moment')
+
 app.use(morgan(':method :url :status - :response-time ms'))
 
 app.use(function(req,res,next){
@@ -70,6 +56,5 @@ app.use(function(req,res,next){
 
 app.use('/', start)
 app.use('/admin', admin)
-app.use('/sso', sso)
 
 app.listen(config.port)

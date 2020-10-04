@@ -19,13 +19,15 @@ module.exports = (db) => {
   })
 
   router.post('/login', (req, res) => {
-    if(req.body.name == 'fzs' && req.body.pass == 'bdbtool') {
-      req.session.is_logged_in = true
-      res.redirect('/')
-    } else {
-      req.flash('warning', 'Falsche Daten')
+    let {name, pass} = req.body
+
+    if(name == null || pass == null) {
+      req.flash("Bitte gebe deine Daten an")
       res.redirect('/login')
     }
+
+    const user = await db.find
+
   })
 
   router.get('/logout', (req, res) => {
