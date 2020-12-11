@@ -1,0 +1,42 @@
+
+version: '3.1'
+
+services:
+  bdb:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - type: bind              #change this to a volume like in the mongodb service if you prefer not to bond to your local fs
+        source: ./public
+        target: /app/public
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME:?err}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD:?err}
+    volumes: 
+      - type: volume
+        source: mongodata
+        target: /data/db
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    environment:
+      - node.name=es01
+      - cluster.name=bdb-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticdata:/usr/share/elasticsearch/data
+
+volumes: 
+  mongodata:
+    driver: local
+  elasticdata:
+    driver: local
