@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+
+.github
+bin
+config.json
+docker-compose.yml
+README.md
