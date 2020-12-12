@@ -1,0 +1,15 @@
+extends layout
+
+block scripts
+  script(src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js")
+  link(href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css", rel="stylesheet")
+
+block content
+    .row
+        .column
+            h2=Einstellungen
+    .row
+        .coumn
+            form(method="post", action="/admin/settings")
+                label(for="orga_name") Organistation
+                input(name="orga_name", type="text", value=orga_name)
