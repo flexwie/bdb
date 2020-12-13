@@ -1,6 +1,6 @@
 html
   head
-    title #{orga_name} - #{title}
+    title #{settings.orga_name} - #{title}
     style.
       @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
       .search { position: relative; }
@@ -34,8 +34,10 @@ html
           a.button(href="/") Home
           if session.is_logged_in
             a.button(href="/admin", style="margin-left: 10px;") Neu
-          if session.is_logged_in
-            a.button(href="/logout", style="margin-left: 10px;") Logout
+            a.button.float-right(href="/logout", style="margin-left: 10px;") Logout
+            a.button.float-right(href="/admin/settings", style="margin-left: 10px;") ⚙️
+            a.button.float-right(href="/admin/user") 👥
           else
             a.button(href="/login", style="margin-left: 10px;") Login
+
       block content
