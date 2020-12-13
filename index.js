@@ -9,6 +9,10 @@ const session = require('express-session')
 const mongoose = require('mongoose')
 const mongtastic = require('mongoosastic')
 const elastic = require('elasticsearch')
+const Configstore = require('configstore')
+const packageJson = require('./package.json')
+
+const config = new Configstore(packageJson.name, { orga_name: 'BDB' })
 
 // Connect to mongoose and elastic
 mongoose
@@ -58,6 +62,9 @@ app.use(flash())
 app.use(express.static('public'))
 app.locals.md = require('node-markdown').Markdown
 app.locals.moment = require('moment')
+app.locals.settings = {
+	orga_name: config.get('orga_name'),
+}
 
 app.use(morgan(':method :url :status - :response-time ms'))
 

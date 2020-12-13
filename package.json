@@ -16,7 +16,7 @@
     "clear": "^0.1.0",
     "clui": "^0.3.6",
     "commander": "^4.0.1",
-    "configstore": "^5.0.0",
+    "configstore": "^5.0.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "^8.2.0",
     "elasticsearch": "^16.5.0",
