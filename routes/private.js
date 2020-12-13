@@ -51,7 +51,11 @@ module.exports = db => {
 	})
 
 	router.get('/settings', async (req, res) => {
-		res.render('settings', { orga_name: 'fzs' })
+		res.render('settings')
+	})
+
+	router.get('/user', async (req, res) => {
+		res.render('user')
 	})
 
 	router.get('/:id', async (req, res) => {
