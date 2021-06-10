@@ -39,7 +39,7 @@
     "natural": "^0.6.2",
     "node-markdown": "^0.1.1",
     "pdfkit": "^0.8.3",
-    "pug": "^2.0.3",
+    "pug": "^3.0.1",
     "remove-markdown": "^0.3.0",
     "retext-keywords": "^4.0.2",
     "rxjs": "^6.6.3",
