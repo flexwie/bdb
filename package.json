@@ -31,7 +31,7 @@
     "keyword-extractor": "0.0.18",
     "listr": "^0.14.3",
     "markdown-to-pug": "^1.0.11",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "moment": "^2.22.2",
     "mongoosastic": "^4.5.1",
     "mongoose": "^5.7.9",
